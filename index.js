@@ -1,6 +1,6 @@
 const fs = require('fs');
 const http = require('http');
-const finalHandler = require('finalhandler')
+const finalHandler = require('finalhandler');
 const serveStatic = require('serve-static');
 
 const port = process.env.PORT || '4444';
