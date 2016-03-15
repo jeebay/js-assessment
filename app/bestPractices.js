@@ -7,8 +7,9 @@ exports = (typeof window === 'undefined') ? global : window;
  */
 
 exports.bestPracticesAnswers = {
+  // in strict mode, omitting var will produce an error
   globals : function() {
-    myObject = {
+    var myObject = {
       name : 'Jory'
     };
 
@@ -16,20 +17,27 @@ exports.bestPracticesAnswers = {
   },
 
   functions : function(flag) {
+    // Function declarations are not hoisted, so a function expression is necessary
+    // in this case to ensure that getValue returns 'a' when flag is true
+    var getValue;
+    
     if (flag) {
-      function getValue() { return 'a'; }
+      getValue = function () { return 'a'; };
     } else {
-      function getValue() { return 'b'; }
+      getValue = function () { return 'b'; };
     }
 
     return getValue();
   },
 
   parseInt : function(num) {
-    return parseInt(num);
+    // The radix should always be defined to avoid confusion, usually base 10.
+    return parseInt(num, 10);
   },
 
   identity : function(val1, val2) {
-
+    // Strict equality ensures that you are comparing values (or references)
+    // and not truthiness/falsiness
+    return val1 === val2;
   }
 };
